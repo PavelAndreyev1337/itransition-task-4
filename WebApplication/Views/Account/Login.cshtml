@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Sign in";
+    Layout = "_Layout";
+}
+
+@model WebApplication.ViewModels.LoginViewModel
+
+<div class="container my-2">
+    <div class="row">
+        <div class="offset-3 col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title text-center">
+                        <h5 class="card-title">Sign in</h5>
+                    </div>
+                    <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="mb-3">
+                            <label asp-for="UserName" class="form-label">Username</label>
+                            <input asp-for="UserName" class="form-control" required>
+                            <span asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input asp-for="Password" class="form-control" type="password" required>
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-50">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

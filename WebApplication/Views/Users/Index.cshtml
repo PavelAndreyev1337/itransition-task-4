@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication.Models.User>
+
+@{ 
+    ViewBag.Title = "Users list";
+    Layout = "_Layout";
+}
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-12">
+            <form asp-controller="Users">
+                <button type="submit" class="btn btn-warning btn-sm" formmethod="post" 
+                        formaction="@Url.RouteUrl(new { controller = "Users", action = "Block"})">
+                    <i class="bi bi-lock"></i>
+                </button>
+                <button type="submit" class="btn btn-success btn-sm" formmethod="post" 
+                        formaction="@Url.RouteUrl(new { controller = "Users", action = "Unblock"})">
+                    <i class="bi bi-unlock"></i>
+                </button>
+                <button type="submit" class="btn btn-danger btn-sm" formmethod="post" 
+                        formaction="@Url.RouteUrl(new { controller = "Users", action = "Delete"})">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <input type="checkbox" id="mainCheckbox" />
+                                select all / deselect
+                            </th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Registration date</th>
+                            <th scope="col">Last authorization date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="@user.Id" name="usersIds" class="row-checkbox" />
+                                </td>
+                                <td>@user.Id</td>
+                                <td>@user.UserName</td>
+                                @if (user.LockoutEnabled)
+                                {
+                                    <td>blocked</td>
+                                }
+                                else
+                                {
+                                    <td>unlocked</td>
+                                }
+                                <td>@user.RegistrationDate</td>
+                                <td>@user.LastLoginTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/index.js"></script>
